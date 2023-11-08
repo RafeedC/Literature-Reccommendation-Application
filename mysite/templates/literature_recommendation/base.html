@@ -1,0 +1,98 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Django App{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'literature_recommendation/css/styles.css' %}">
+
+    <style>
+      /* Add your CSS styles here */
+      header nav ul {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          background-color: #333;
+      }
+
+      header nav ul li {
+          float: left;
+      }
+
+      header nav ul li a {
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+      }
+
+      header nav ul li a:hover {
+          background-color: #111;
+      }
+      /* Additional styles for navigation alignment */
+      nav ul {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .nav-links,
+        nav .auth-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            padding: 0 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            /* Other styling for your links */
+        }
+  </style>
+</head>
+
+<body>
+    <header>
+      <nav>
+        <ul>
+            <li class="nav-links">
+                <!-- Left-aligned links -->
+                <a href="{% url 'home' %}">Home</a>
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'book_swiping' %}">Book Swiping</a>
+                    <a href="{% url 'my_list' %}">My List</a>
+                    <a href="{% url 'my_likes' %}">My Likes</a>
+                    <a href="{% url 'my_profile' %}">My Profile</a>
+                {% endif %}
+            </li>
+            <li class="auth-links">
+                <!-- Right-aligned links -->
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'signup' %}">Sign Up</a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <footer>
+    </footer>
+</body>
+</html>
